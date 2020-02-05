@@ -24,12 +24,9 @@
 	},
 	"scripts": {
 		"server": "node server/index.js",
-		"start": "react-scripts start",
-		"build": "react-scripts build",
-		"test": "react-scripts test"
-	},
-	"eslintConfig": {
-		"extends": "react-app"
+		"start": "EXTEND_ESLINT=true react-scripts start",
+		"build": "EXTEND_ESLINT=true react-scripts build",
+		"test": "react-app-rewired test"
 	},
 	"browserslist": {
 		"production": [
