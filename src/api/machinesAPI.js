@@ -1,8 +1,7 @@
 import axios from 'axios';
 
 const getMachines = function () {
-	console.log('url ', process.env.REACT_APP_MACHINES_API + '/machines');
-	return axios.get(process.env.REACT_APP_MACHINES_AsPI + '/machines');
+	return axios.get(process.env.REACT_APP_MACHINES_API + '/machines');
 };
 
 const getMachineById = function (id) {

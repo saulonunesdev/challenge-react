@@ -6,6 +6,7 @@ class Machines extends Component {
 		super();
 		this.state = {
 			isFetching: false,
+			message: '',
 			machines: []
 		};
 	}
@@ -21,11 +22,9 @@ class Machines extends Component {
 				this.setState({ machines: response.data });
 			})
 			.catch((error) => {
-				console.log('x', error.error);
 				this.setState({
-					message: error
+					message: 'Error: ' + error.response.status + ' - ' + error.response.statusText
 				});
-				console.log(this.state.message);
 			})
 			.finally(() => {
 				this.setState({
@@ -36,6 +35,7 @@ class Machines extends Component {
 
 	render () {
 		return <div>
+			{this.state.message && <div>{this.state.message}</div>}
 			{this.state.isFetching && <div>Fetching...</div>}
 			{this.state.machines.map((item, index) => (
 				<div key={index} id={item.id}>
