@@ -29,12 +29,7 @@ class MachineItem extends Component {
 						</div>
 						<div className='Machine-item'>
 							<label className='Machine-item-label'><WifiIcon />Ip Address</label>
-							<input
-								type="text"
-								value={this.props.machine.ip_address}
-								onChange={this.props.onHandleIpChange}
-								className='Machine-item-input'
-							/>
+							<div className='Machine-item-input'>{this.props.machine.ip_address}</div>
 						</div>
 						<div className='Machine-item'>
 							<label className='Machine-item-label'><SpeedIcon />Health</label>
@@ -53,7 +48,6 @@ MachineItem.propTypes ={
 	machine: PropTypes.object.isRequired,
 	onHandleMachineUpdate: PropTypes.func,
 	onHandleGetMachine: PropTypes.func,
-	onHandleIpChange: PropTypes.func,
 	onHandleNameChange: PropTypes.func
 };
 

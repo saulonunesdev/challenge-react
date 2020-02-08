@@ -21,7 +21,6 @@ class MachinesContainer extends Component {
 								{...props}
 								onHandleMachineUpdate={this.props.onHandleMachineUpdate}
 								onHandleGetMachine={this.props.onHandleGetMachine}
-								onHandleIpChange={this.props.onHandleIpChange}
 								onHandleNameChange={this.props.onHandleNameChange}
 								machine={this.props.machine}
 							/>
@@ -39,7 +38,6 @@ MachinesContainer.propTypes ={
 	machine: PropTypes.object,
 	onHandleMachineUpdate: PropTypes.func,
 	onHandleGetMachine: PropTypes.func,
-	onHandleIpChange: PropTypes.func,
 	onHandleNameChange: PropTypes.func
 };
 

@@ -4,7 +4,7 @@ import App from './App.Routes';
 
 test('renders /machines link', () => {
 	const { getByText } = render(<App />);
-	const linkElement = getByText(/machines/i);
+	const linkElement = getByText(/loading/i);
 	expect(linkElement).toBeInTheDocument();
 });
 

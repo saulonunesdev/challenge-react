@@ -9,7 +9,7 @@ const getMachineById = function (id) {
 };
 
 const updateMachine = function (machine) {
-	return axios.put(process.env.REACT_APP_MACHINES_API + '/machines/' + machine.id, machine);
+	return axios.put(process.env.REACT_APP_MACHINES_API + '/machine/' + machine.id, machine);
 };
 
 export { getMachines, getMachineById, updateMachine };
