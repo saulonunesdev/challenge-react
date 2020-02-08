@@ -7,3 +7,9 @@ test('renders /machines link', () => {
 	const linkElement = getByText(/machines/i);
 	expect(linkElement).toBeInTheDocument();
 });
+
+test('renders /home link', () => {
+	const { getByText } = render(<App />);
+	const linkElement = getByText(/home/i);
+	expect(linkElement).toBeInTheDocument();
+});

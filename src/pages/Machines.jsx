@@ -1,19 +1,28 @@
 import React, { Component } from 'react';
-import { getMachines } from '../api/machinesAPI';
+import { getMachines, getMachineById, updateMachine } from '../api/machinesAPI';
+import Header from '../components/Header';
+import MachinesContainer from '../components/MachinesContainer';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 class Machines extends Component {
 	constructor () {
 		super();
 		this.state = {
-			isFetching: false,
+			isWorking: false,
 			message: '',
-			machines: []
+			machines: [],
+			machine: {}
 		};
+		this.handleMachineUpdate = this.handleMachineUpdate.bind(this);
+		this.handleGetMachine = this.handleGetMachine.bind(this);
+		this.handleIpChange = this.handleIpChange.bind(this);
+		this.handleNameChange = this.handleNameChange.bind(this);
+		this.handleGetMachines = this.handleGetMachines.bind(this);
 	}
 
-	componentDidMount () {
+	handleGetMachines () {
 		this.setState({
-			isFetching: true,
+			isWorking: true,
 			message: '',
 			machines: []
 		});
@@ -22,29 +31,109 @@ class Machines extends Component {
 				this.setState({ machines: response.data });
 			})
 			.catch((error) => {
+				console.log('xx', error);
 				this.setState({
-					message: 'Error: ' + error.response.status + ' - ' + error.response.statusText
+					message: 'Error: ' + error.message
 				});
 			})
 			.finally(() => {
 				this.setState({
-					isFetching: false
+					isWorking: false
 				});
 			});
 	}
 
+	handleNameChange (e) {
+		this.setState({
+			machine: {
+				id: this.state.machine.id,
+				name: e.currentTarget.value,
+				// eslint-disable-next-line camelcase
+				ip_address: this.state.machine.ip_address,
+				health: this.state.machine.health
+			}
+		});
+	}
+
+	handleIpChange (e) {
+		this.setState({
+			machine: {
+				id: this.state.machine.id,
+				name: this.state.machine.name,
+				// eslint-disable-next-line camelcase
+				ip_address: e.currentTarget.value,
+				health: this.state.machine.health
+			}
+		});
+	}
+
+	handleGetMachine (machineId) {
+		this.setState({
+			isWorking: true,
+			message: '',
+			machine: {}
+		});
+
+		getMachineById(machineId)
+			.then((response) => {
+				this.setState({ machine: response.data });
+			})
+			.catch((error) => {
+				this.setState({
+					message: 'Error: ' + error.message
+				});
+			})
+			.finally(() => {
+				this.setState({
+					isWorking: false
+				});
+			});
+	}
+
+	handleMachineUpdate (e) {
+		e.preventDefault();
+		this.setState({
+			isWorking: true,
+			message: ''
+		});
+
+		updateMachine(this.state.machine)
+			.then((response) => {
+				this.setState({
+					message: 'Success: ' + response.status
+				});
+			})
+			.catch((error) => {
+				this.setState({
+					message: 'Error: ' + error.message
+				});
+			})
+			.finally(() => {
+				this.setState({
+					isWorking: false
+				});
+			});
+	}
+
+	componentDidMount () {
+		this.handleGetMachines();
+	}
+
 	render () {
-		return <div>
-			{this.state.message && <div>{this.state.message}</div>}
-			{this.state.isFetching && <div>Fetching...</div>}
-			{this.state.machines.map((item, index) => (
-				<div key={index} id={item.id}>
-					<div>{item.name}</div>
-					<div>{item.ip_address}</div>
-					<div>{item.health}</div>
-				</div>
-			))}
-		</div>;
+		return (
+			<Router>
+				<Header
+					onHandleGetMachines={this.handleGetMachines}
+				/>
+				<MachinesContainer
+					{...this.state}
+					onHandleMachineUpdate={this.handleMachineUpdate}
+					onHandleGetMachine={this.handleGetMachine}
+					onHandleIpChange={this.handleIpChange}
+					onHandleNameChange={this.handleNameChange}
+				/>
+			</Router>
+		);
 	}
 }
 
