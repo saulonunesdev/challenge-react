@@ -71,7 +71,15 @@ margin-top: 20px;
 }
 
 .Machine-item-input {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	color: #6b3b1f;
+	width: 200px;
+	border: 1px solid #6b3b1f;
+	border-radius: 2px;
+	height: 30px;
+	text-align: center;
 }
 
 .Machine-item-send {
@@ -84,4 +92,13 @@ margin-top: 20px;
 	color: #fff;
 	border: 3px solid #6b3b1f;
 	border-radius: 5px;
+}
+
+.message {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 10px;
+	color: #ed5638;
+	font-weight: 700;
 }

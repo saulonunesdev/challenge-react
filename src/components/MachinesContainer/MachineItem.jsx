@@ -38,12 +38,7 @@ class MachineItem extends Component {
 						</div>
 						<div className='Machine-item'>
 							<label className='Machine-item-label'><SpeedIcon />Health</label>
-							<input
-								type="text"
-								value={this.props.machine.health}
-								disabled={true}
-								className='Machine-item-input'
-							/>
+							<div className='Machine-item-input'>{this.props.machine.health}</div>
 						</div>
 						<input type="submit" value="Send" className='Machine-item-send'/>
 					</form>

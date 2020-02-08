@@ -9,8 +9,8 @@ class MachinesContainer extends Component {
 	render () {
 		return (
 			<div>
-				{this.props.message && <div>{this.props.message}</div>}
-				{this.props.isWorking && <div>Working...</div>}
+				{this.props.message && <div className='message'>{this.props.message}</div>}
+				{this.props.isWorking && <div className='message'>Working...</div>}
 				<Switch>
 					<Route exact path="/machines">
 						<MachineItems {...this.props} />
