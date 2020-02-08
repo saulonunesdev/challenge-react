@@ -1,0 +1,39 @@
+.App-header {
+	margin: 0 3em;
+	background-color: white;
+}
+
+.Img-header {
+	text-align: center;
+}
+
+.Img-header img {
+	width: 800px;
+	height: 272px;
+}
+
+.App-nav {
+	margin-bottom: 2em;
+	display: flex;
+	justify-content: center;
+}
+
+.App-nav a {
+	text-decoration: none;
+	color: #36459b;
+	margin: 0 1em;
+}
+
+.App-nav a:hover {
+	text-decoration: underline;
+}
+
+.App-nav a:first-child {
+	margin-left: 0;
+}
+
+.App-links {
+	color: #61dafb;
+	display: flex;
+	align-items: center;
+}

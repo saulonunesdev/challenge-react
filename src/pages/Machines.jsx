@@ -31,7 +31,6 @@ class Machines extends Component {
 				this.setState({ machines: response.data });
 			})
 			.catch((error) => {
-				console.log('xx', error);
 				this.setState({
 					message: 'Error: ' + error.message
 				});
