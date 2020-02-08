@@ -11,7 +11,13 @@ class Machines extends Component {
 			isWorking: false,
 			message: '',
 			machines: [],
-			machine: {}
+			machine: {
+				name: '',
+				id: '',
+				// eslint-disable-next-line camelcase
+				ip_address: '',
+				helth: ''
+			}
 		};
 		this.handleMachineUpdate = this.handleMachineUpdate.bind(this);
 		this.handleGetMachine = this.handleGetMachine.bind(this);
@@ -70,8 +76,7 @@ class Machines extends Component {
 	handleGetMachine (machineId) {
 		this.setState({
 			isWorking: true,
-			message: '',
-			machine: {}
+			message: ''
 		});
 
 		getMachineById(machineId)
@@ -117,8 +122,7 @@ class Machines extends Component {
 	handleGetMachine (machineId) {
 		this.setState({
 			isWorking: true,
-			message: '',
-			machine: {}
+			message: ''
 		});
 
 		getMachineById(machineId)

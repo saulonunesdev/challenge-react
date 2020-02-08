@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import WifiIcon from '@material-ui/icons/Wifi';
-import FavoriteIcon from '@material-ui/icons/Favorite';
+import ComputerIcon from '@material-ui/icons/Computer';
 import SpeedIcon from '@material-ui/icons/Speed';
 
 class MachineItem extends Component {
@@ -19,7 +19,7 @@ class MachineItem extends Component {
 						className='Machines-result-container -form'
 					>
 						<div className='Machine-item'>
-							<label className='Machine-item-label'><FavoriteIcon />Name</label>
+							<label className='Machine-item-label'><ComputerIcon />Name</label>
 							<input
 								type="text"
 								value={this.props.machine.name}
@@ -38,12 +38,7 @@ class MachineItem extends Component {
 						</div>
 						<div className='Machine-item'>
 							<label className='Machine-item-label'><SpeedIcon />Health</label>
-							<input
-								type="text"
-								value={this.props.machine.health}
-								disabled={true}
-								className='Machine-item-input'
-							/>
+							<div className='Machine-item-input'>{this.props.machine.health}</div>
 						</div>
 						<input type="submit" value="Send" className='Machine-item-send'/>
 					</form>
