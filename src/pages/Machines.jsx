@@ -31,6 +31,54 @@ class Machines extends Component {
 				this.setState({ machines: response.data });
 			})
 			.catch((error) => {
+				console.log('xx', error);
+				this.setState({
+					message: 'Error: ' + error.message
+				});
+			})
+			.finally(() => {
+				this.setState({
+					isWorking: false
+				});
+			});
+	}
+
+	handleNameChange (e) {
+		this.setState({
+			machine: {
+				id: this.state.machine.id,
+				name: e.currentTarget.value,
+				// eslint-disable-next-line camelcase
+				ip_address: this.state.machine.ip_address,
+				health: this.state.machine.health
+			}
+		});
+	}
+
+	handleIpChange (e) {
+		this.setState({
+			machine: {
+				id: this.state.machine.id,
+				name: this.state.machine.name,
+				// eslint-disable-next-line camelcase
+				ip_address: e.currentTarget.value,
+				health: this.state.machine.health
+			}
+		});
+	}
+
+	handleGetMachine (machineId) {
+		this.setState({
+			isWorking: true,
+			message: '',
+			machine: {}
+		});
+
+		getMachineById(machineId)
+			.then((response) => {
+				this.setState({ machine: response.data });
+			})
+			.catch((error) => {
 				this.setState({
 					message: 'Error: ' + error.message
 				});
