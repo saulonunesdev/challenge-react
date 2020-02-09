@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
-import MachineReducer from './machine-reducer';
+import machineStore from './machinesReducer';
 import { reducer as formReducer } from 'redux-form';
 
 const reducers = {
-	machineStore: MachineReducer,
+	machineStore: machineStore,
 	form: formReducer
 };
 

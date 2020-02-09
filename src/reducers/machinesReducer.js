@@ -60,10 +60,9 @@ export default (state=defaultState, action={}) => {
 		}
 
 		case 'UPDATE_MACHINE_FULFILLED': {
-			const machine = action.payload.data;
 			return {
 				...state,
-				machines: state.contacts.map(item => item._id === machine.id ? machine : item),
+				machine: action.payload.data,
 				errors: {},
 				loading: false
 			};
@@ -85,6 +84,15 @@ export default (state=defaultState, action={}) => {
 			return {
 				...state,
 				errors: errors,
+				loading: false
+			};
+		}
+
+		case 'UPDATE_MACHINE_NAME': {
+			return {
+				...state,
+				machine: action.payload,
+				errors: {},
 				loading: false
 			};
 		}

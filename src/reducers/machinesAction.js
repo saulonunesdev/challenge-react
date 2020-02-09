@@ -1,4 +1,4 @@
-import { machines } from './';
+import { machines } from '../api/machinesApi';
 
 const url = '/machines';
 
@@ -25,6 +25,15 @@ export function updateMachine (machine) {
 		return dispatch({
 			type: 'UPDATE_MACHINE',
 			payload: machines.put(`${url}/${machine.id}`, machine)
+		});
+	};
+}
+
+export function updateMachineName (machine) {
+	return dispatch => {
+		return dispatch({
+			type: 'UPDATE_MACHINE_NAME',
+			payload: machine
 		});
 	};
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import App from './App.Routes';
+import App from './Routes';
 
 test('renders /machines link', () => {
 	const { getByText } = render(<App />);

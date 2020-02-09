@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import MachinesContainer from '../components/MachinesContainer';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { fetchMachines, fetchMachine } from '../api/machinesAPI';
+import { fetchMachines, fetchMachine, updateMachine, updateMachineName } from '../reducers/machinesAction';
 
 class Machines extends Component {
 	constructor () {
@@ -21,7 +21,11 @@ class Machines extends Component {
 	}
 
 	handleNameChange (e) {
-		console.log('handleNameChange');
+		let machineChange = {
+			...this.props.machine,
+			name: e.target.value
+		};
+		this.props.updateMachineName(machineChange);
 	}
 
 	handleGetMachine (machineId) {
@@ -30,7 +34,7 @@ class Machines extends Component {
 
 	handleMachineUpdate (e) {
 		e.preventDefault();
-		console.log('handleMachineUpdate');
+		this.props.updateMachine(this.props.machine);
 	}
 
 	componentDidMount () {
@@ -72,7 +76,9 @@ Machines.propTypes ={
 	loading: PropTypes.bool,
 	errors: PropTypes.object,
 	fetchMachines: PropTypes.func,
-	fetchMachine: PropTypes.func
+	fetchMachine: PropTypes.func,
+	updateMachine: PropTypes.func,
+	updateMachineName: PropTypes.func
 };
 
-export default connect(mapStateToProps, {fetchMachines, fetchMachine})(Machines);
+export default connect(mapStateToProps, {fetchMachines, fetchMachine, updateMachine, updateMachineName})(Machines);
