@@ -1,15 +1,30 @@
-import axios from 'axios';
+import { machines } from './';
 
-const getMachines = function () {
-	return axios.get(process.env.REACT_APP_MACHINES_API + '/machines');
-};
+const url = '/machines';
 
-const getMachineById = function (id) {
-	return axios.get(process.env.REACT_APP_MACHINES_API + '/machines/' + id);
-};
+export function fetchMachines () {
+	return dispatch => {
+		dispatch({
+			type: 'FETCH_MACHINES',
+			payload: machines.get(url)
+		});
+	};
+}
 
-const updateMachine = function (machine) {
-	return axios.put(process.env.REACT_APP_MACHINES_API + '/machine/' + machine.id, machine);
-};
+export function fetchMachine (id) {
+	return dispatch => {
+		return dispatch({
+			type: 'FETCH_MACHINE',
+			payload: machines.get(`${url}/${id}`)
+		});
+	};
+}
 
-export { getMachines, getMachineById, updateMachine };
+export function updateMachine (machine) {
+	return dispatch => {
+		return dispatch({
+			type: 'UPDATE_MACHINE',
+			payload: machines.put(`${url}/${machine.id}`, machine)
+		});
+	};
+}

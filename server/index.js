@@ -16,7 +16,7 @@ router
 	.use(bodyParser())
 	.get('/machines', api.getAllMachines)
 	.get('/machines/:id', api.getMachineById)
-	.put('/machine/:id', api.putMachineById);
+	.put('/machines/:id', api.putMachineById);
 
 app
 	.use(router.routes())

@@ -1,24 +1,15 @@
 import React, { Component } from 'react';
-import { getMachines, getMachineById, updateMachine } from '../api/machinesAPI';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import MachinesContainer from '../components/MachinesContainer';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { fetchMachines, fetchMachine } from '../api/machinesAPI';
 
 class Machines extends Component {
 	constructor () {
 		super();
-		this.state = {
-			isWorking: false,
-			message: '',
-			machines: [],
-			machine: {
-				name: '',
-				id: '',
-				// eslint-disable-next-line camelcase
-				ip_address: '',
-				helth: ''
-			}
-		};
+
 		this.handleMachineUpdate = this.handleMachineUpdate.bind(this);
 		this.handleGetMachine = this.handleGetMachine.bind(this);
 		this.handleNameChange = this.handleNameChange.bind(this);
@@ -26,85 +17,20 @@ class Machines extends Component {
 	}
 
 	handleGetMachines () {
-		this.setState({
-			isWorking: true,
-			message: '',
-			machines: []
-		});
-		getMachines()
-			.then((response) => {
-				this.setState({ machines: response.data });
-			})
-			.catch((error) => {
-				console.log('xx', error);
-				this.setState({
-					message: 'Error: ' + error.message
-				});
-			})
-			.finally(() => {
-				this.setState({
-					isWorking: false
-				});
-			});
+		this.props.fetchMachines();
 	}
 
 	handleNameChange (e) {
-		this.setState({
-			machine: {
-				id: this.state.machine.id,
-				name: e.currentTarget.value,
-				// eslint-disable-next-line camelcase
-				ip_address: this.state.machine.ip_address,
-				health: this.state.machine.health
-			}
-		});
+		console.log('handleNameChange');
 	}
 
 	handleGetMachine (machineId) {
-		this.setState({
-			isWorking: true,
-			message: ''
-		});
-
-		getMachineById(machineId)
-			.then((response) => {
-				this.setState({ machine: response.data });
-			})
-			.catch((error) => {
-				this.setState({
-					message: 'Error: ' + error.message
-				});
-			})
-			.finally(() => {
-				this.setState({
-					isWorking: false
-				});
-			});
+		this.props.fetchMachine(machineId);
 	}
 
 	handleMachineUpdate (e) {
 		e.preventDefault();
-		this.setState({
-			isWorking: true,
-			message: ''
-		});
-
-		updateMachine(this.state.machine)
-			.then((response) => {
-				this.setState({
-					message: 'Success: ' + response.status
-				});
-			})
-			.catch((error) => {
-				this.setState({
-					message: 'Error: ' + error.message
-				});
-			})
-			.finally(() => {
-				this.setState({
-					isWorking: false
-				});
-			});
+		console.log('handleMachineUpdate');
 	}
 
 	componentDidMount () {
@@ -118,14 +44,35 @@ class Machines extends Component {
 					onHandleGetMachines={this.handleGetMachines}
 				/>
 				<MachinesContainer
-					{...this.state}
 					onHandleMachineUpdate={this.handleMachineUpdate}
 					onHandleGetMachine={this.handleGetMachine}
 					onHandleNameChange={this.handleNameChange}
+					machines={this.props.machines}
+					machine={this.props.machine}
+					loading={this.props.loading}
+					errors={this.props.errors}
 				/>
 			</Router>
 		);
 	}
 }
 
-export default Machines;
+function mapStateToProps (state) {
+	return {
+		machines: state.machineStore.machines,
+		machine: state.machineStore.machine,
+		loading: state.machineStore.loading,
+		errors: state.machineStore.errors
+	};
+}
+
+Machines.propTypes ={
+	machines: PropTypes.array,
+	machine: PropTypes.object,
+	loading: PropTypes.bool,
+	errors: PropTypes.object,
+	fetchMachines: PropTypes.func,
+	fetchMachine: PropTypes.func
+};
+
+export default connect(mapStateToProps, {fetchMachines, fetchMachine})(Machines);

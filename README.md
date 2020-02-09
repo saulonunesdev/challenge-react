@@ -25,6 +25,7 @@ The backend API is accessible from `http://localhost:8080` and exposes two endpo
 - GET `/machines` - get all machines
 - GET `/machines/:machineId` - get a machine by its ID
 - PUT `/machine/:machineId` - update a machine
+  > note: it was assumed that this was a typo mistake and left the put url as PUT `/machines/:machineId`
 
 The web socket url is `ws://localhost:1337`.
 

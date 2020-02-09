@@ -9,8 +9,8 @@ class MachinesContainer extends Component {
 	render () {
 		return (
 			<div>
-				{this.props.message && <div className='message'>{this.props.message}</div>}
-				{this.props.isWorking && <div className='message'>Working...</div>}
+				{this.props.errors && <div className='message'>{this.props.errors.global}</div>}
+				{this.props.loading && <div className='message'>Working...</div>}
 				<Switch>
 					<Route exact path="/machines">
 						<MachineItems {...this.props} />
@@ -32,8 +32,8 @@ class MachinesContainer extends Component {
 }
 
 MachinesContainer.propTypes ={
-	message: PropTypes.string,
-	isWorking: PropTypes.bool,
+	errors: PropTypes.object,
+	loading: PropTypes.bool,
 	machines: PropTypes.array,
 	machine: PropTypes.object,
 	onHandleMachineUpdate: PropTypes.func,

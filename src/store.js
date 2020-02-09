@@ -1,20 +1,11 @@
-import { createStore } from 'redux';
-
-const defaultState = {
-	machines: [],
-	// eslint-disable-next-line camelcase
-	machine: {id: '', name: '', ip_address: '', health: ''},
-	isWorking: false,
-	message: {}
-};
-
-function machineReducer (state = defaultState, action) {
-	switch (action.type) {
-		default:
-			return state;
-	}
+import { applyMiddleware, createStore } from 'redux';
+import thunkMiddleware from 'redux-thunk';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import promise from 'redux-promise-middleware';
+import rootReducer from './reducers';
+export default function configureStore (preloadedState) {
+	const middlewares = [promise, thunkMiddleware];
+	const composedEnhancers = composeWithDevTools(applyMiddleware(...middlewares));
+	const store = createStore(rootReducer, preloadedState, composedEnhancers);
+	return store;
 }
-
-const store = createStore(machineReducer);
-
-export default store;
