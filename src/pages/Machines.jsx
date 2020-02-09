@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import MachinesContainer from '../components/MachinesContainer';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { fetchMachines, fetchMachine, updateMachine, updateMachineName } from '../reducers/machinesAction';
+import { updateMachinesHealth, updateMachineHealth } from '../reducers/healthAction';
 
 class Machines extends Component {
 	constructor () {
@@ -16,8 +17,41 @@ class Machines extends Component {
 		this.handleGetMachines = this.handleGetMachines.bind(this);
 	}
 
+	startWebSocket = (type) => {
+		let socket = new WebSocket(process.env.REACT_APP_WEBSOCKET_API);
+		socket.onmessage = type === 'machines' ? this.getMachinesSocketMessage : this.getMachineSocketMessage;
+	};
+
+	getMachinesSocketMessage = (event) => {
+		const data = JSON.parse(event.data);
+
+		if (data.type === 'HEALTH_UPDATE') {
+			if (this.props.machines && this.props.machines.length > 0) {
+				const machines = this.props.machines.map(machine => {
+					if (machine.id === data.id) {
+						machine.health = data.health;
+					}
+					return machine;
+				});
+				this.props.updateMachinesHealth(machines);
+			}
+		}
+	};
+
+	getMachineSocketMessage = (event) => {
+		const data = JSON.parse(event.data);
+		const machine = this.props.machine;
+
+		if (this.props.machine.id === data.id) {
+			machine.health = data.health;
+			this.props.updateMachineHealth(machine);
+		}
+	}
+
+
 	handleGetMachines () {
 		this.props.fetchMachines();
+		this.startWebSocket('machines');
 	}
 
 	handleNameChange (e) {
@@ -30,6 +64,7 @@ class Machines extends Component {
 
 	handleGetMachine (machineId) {
 		this.props.fetchMachine(machineId);
+		this.startWebSocket('machine');
 	}
 
 	handleMachineUpdate (e) {
@@ -78,7 +113,16 @@ Machines.propTypes ={
 	fetchMachines: PropTypes.func,
 	fetchMachine: PropTypes.func,
 	updateMachine: PropTypes.func,
-	updateMachineName: PropTypes.func
+	updateMachineName: PropTypes.func,
+	updateMachinesHealth: PropTypes.func,
+	updateMachineHealth: PropTypes.func
 };
 
-export default connect(mapStateToProps, {fetchMachines, fetchMachine, updateMachine, updateMachineName})(Machines);
+export default connect(mapStateToProps, {
+	fetchMachines,
+	fetchMachine,
+	updateMachine,
+	updateMachineName,
+	updateMachinesHealth,
+	updateMachineHealth
+})(Machines);

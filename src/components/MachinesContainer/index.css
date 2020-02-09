@@ -19,6 +19,10 @@
 	color: #fff;
 }
 
+.Machines-result.-items:hover {
+	background-color: #f5c0b5;
+}
+
 .Machines-result.-items {
 background-color: rgb(238, 236, 231);
 text-decoration: none;
@@ -77,9 +81,14 @@ margin-top: 20px;
 	color: #6b3b1f;
 	width: 200px;
 	border: 1px solid #6b3b1f;
+	background-color: #dfbba5;
 	border-radius: 2px;
 	height: 30px;
 	text-align: center;
+}
+
+.Machine-item-input.-name {
+	background-color: #fff;
 }
 
 .Machine-item-send {

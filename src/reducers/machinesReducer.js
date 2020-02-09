@@ -97,6 +97,24 @@ export default (state=defaultState, action={}) => {
 			};
 		}
 
+		case 'UPDATE_MACHINES_HEALTH': {
+			return {
+				...state,
+				machines: action.payload,
+				errors: {},
+				loading: false
+			};
+		}
+
+		case 'UPDATE_MACHINE_HEALTH': {
+			return {
+				...state,
+				machine: action.payload,
+				errors: {},
+				loading: false
+			};
+		}
+
 		default: {
 			return state;
 		}

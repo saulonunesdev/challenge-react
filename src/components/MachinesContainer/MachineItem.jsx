@@ -24,7 +24,8 @@ class MachineItem extends Component {
 								type="text"
 								value={this.props.machine.name}
 								onChange={this.props.onHandleNameChange}
-								className='Machine-item-input'
+								className='Machine-item-input -name'
+								autoFocus
 							/>
 						</div>
 						<div className='Machine-item'>
