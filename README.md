@@ -1,5 +1,9 @@
 ![Polycade.com](https://i.imgur.com/jcvsFKh.png)
 
+> note: in order to run create a .env file with the following enviroment
+> REACT_APP_MACHINES_API = '<http://localhost:8080'>
+> REACT_APP_WEBSOCKET_API = 'ws://localhost:1337'
+
 ---
 
 # Polycade Engineering React Challenge
